@@ -1,8 +1,13 @@
 import * as nodemailer from "nodemailer";
-import {Configs} from './configs';
+
+enum Config {
+    HOST = "",
+    PORT = 587,
+    USER = "",
+    PASSWORD = ""
+}
 
 export class Mail {
-    config = new Configs();
     constructor(
         public to?: string,
         public subject?: string,
@@ -12,19 +17,19 @@ export class Mail {
     sendMail() {
 
         let mailOptions = {
-            from: "rbb@cin.ufpe.br",
+            from: "portalband@band.com.br",
             to: this.to,
             subject: this.subject,
             html: this.message
         };
 
         const transporter = nodemailer.createTransport({
-            host: this.config.host,
-            port: this.config.port,
+            host: Config.HOST,
+            port: Config.PORT,
             secure: false,
             auth: {
-                user: this.config.user,
-                pass: this.config.password
+                user: Config.USER,
+                pass: Config.PASSWORD
             },
             tls: { rejectUnauthorized: false }
         });
@@ -40,4 +45,6 @@ export class Mail {
             }
         });
     }
+
+
 }
