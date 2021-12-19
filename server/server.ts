@@ -1,5 +1,7 @@
 import bodyParser = require("body-parser");
 import express = require("express");
+// import cors = require('cors');
+import nodemailer = require("nodemailer");
 import { PaymentService } from "./src/payment/payment-service";
 import { Payment } from "./src/payment/payment";
 
@@ -15,7 +17,7 @@ var allowCrossDomain = function (req: any, res: any, next: any) {
 	res.header("Access-Control-Allow-Headers", "Content-Type");
 	next();
 };
-
+// app.use(cors({origin: "*" }));
 app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
@@ -147,7 +149,6 @@ app.delete(
 		}
 	}
 );
-
 
 var server = app.listen(3000, function () {
 	console.log("Servidor iniciado.\n Vasco.");
