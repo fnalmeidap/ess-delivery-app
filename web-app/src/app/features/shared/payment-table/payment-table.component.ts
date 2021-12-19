@@ -25,9 +25,7 @@ export class PaymentTableComponent implements OnInit {
       .subscribe((data) => {
         this.dataSource = new MatTableDataSource(data);
         this.loading = false;
-      })
-      .add(() => {
         this.table?.renderRows();
-      });
+      })
   }
 }
