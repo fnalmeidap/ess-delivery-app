@@ -1,50 +1,48 @@
 import * as nodemailer from "nodemailer";
 
-enum Config {
-    HOST = "",
-    PORT = 587,
-    USER = "",
-    PASSWORD = ""
+class Config {
+	HOST = "";
+	PORT = 587;
+	USER = "";
+	PASSWORD = "";
 }
 
 export class Mail {
-    constructor(
-        public to?: string,
-        public subject?: string,
-        public message?: string) { }
+	constructor(
+		public to?: string,
+		public subject?: string,
+		public message?: string
+	) {}
 
+	sendMail() {
+		let configs = new Config();
 
-    sendMail() {
+		let mailOptions = {
+			from: "portalband@band.com.br",
+			to: this.to,
+			subject: this.subject,
+			html: this.message,
+		};
 
-        let mailOptions = {
-            from: "portalband@band.com.br",
-            to: this.to,
-            subject: this.subject,
-            html: this.message
-        };
+		const transporter = nodemailer.createTransport({
+			host: configs.HOST,
+			port: configs.PORT,
+			secure: false,
+			auth: {
+				user: configs.USER,
+				pass: configs.PASSWORD,
+			},
+			tls: { rejectUnauthorized: false },
+		});
 
-        const transporter = nodemailer.createTransport({
-            host: Config.HOST,
-            port: Config.PORT,
-            secure: false,
-            auth: {
-                user: Config.USER,
-                pass: Config.PASSWORD
-            },
-            tls: { rejectUnauthorized: false }
-        });
+		console.log(mailOptions);
 
-
-        console.log(mailOptions);
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                return error;
-            } else {
-                return "E-mail enviado com sucesso!";
-            }
-        });
-    }
-
-
+		transporter.sendMail(mailOptions, function (error: any, info: any) {
+			if (error) {
+				return error;
+			} else {
+				return "E-mail enviado com sucesso!";
+			}
+		});
+	}
 }
