@@ -11,7 +11,7 @@ import { DataService } from '../../services/data.service';
 })
 export class PaymentTableComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<Payment> | undefined;
-  displayedColumns: string[] = ['Tipo', 'Status', 'Chave'];
+  displayedColumns: string[] = ['Tipo', 'Status'];
   data$: Observable<Payment[]> | undefined;
   dataSource: MatTableDataSource<any>;
   loading: boolean = true;

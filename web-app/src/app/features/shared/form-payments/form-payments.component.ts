@@ -11,8 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormPaymentsComponent implements OnInit {
   value?: string;
+  status?: string;
 
-  types = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito', 'Pix'];
+  types = ['Dinheiro', 'Mastercard', 'Visa', 'PayPal', 'Google Pay', 'Apple Pay', 'Cielo', 'PicPay', 'Pix'];
+  statusTypes = ['Ativa', 'Inativa'];
 
   type: string = 'CASH';
 
@@ -27,7 +29,7 @@ export class FormPaymentsComponent implements OnInit {
     let data: Payment = {
       value: String(this.value),
       type: this.type,
-      status: 'Ativa',
+      status: String(this.status),
     };
 
     this.dataService.updatePayments(data);
