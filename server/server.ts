@@ -35,7 +35,7 @@ app.get("/payments", function (req, res) {
 });
 
 app.get("/payments/:id", function (req, res) {
-	const id = req.params.id;
+	const id = parseInt(req.params.id);
 	const payment = paymentService.getById(id);
 	if (payment) {
 		res.send(payment);
@@ -74,7 +74,7 @@ app.put("/payments", function (req: express.Request, res: express.Response) {
 app.delete(
 	"/payments/:id",
 	function (req: express.Request, res: express.Response) {
-		const id = req.params.id;
+		const id = parseInt(req.params.id);
 		const payment = paymentService.getById(id);
 		if (payment) {
 			paymentService.deleteById(id);
@@ -97,7 +97,7 @@ app.get("/promotions", function (req, res) {
 });
 
 app.get("/promotions/:id", function (req, res) {
-	const id = req.params.id;
+	const id = parseInt(req.params.id);
 	const promotion = promotionService.getById(id);
 	if (promotion) {
 		res.send(promotion);
@@ -136,7 +136,7 @@ app.put("/promotions", function (req: express.Request, res: express.Response) {
 app.delete(
 	"/promotions/:id",
 	function (req: express.Request, res: express.Response) {
-		const id = req.params.id;
+		const id = parseInt(req.params.id);
 		const promotion = promotionService.getById(id);
 
 		if (promotion) {
