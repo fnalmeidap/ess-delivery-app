@@ -14,4 +14,6 @@ export class PromotionsComponent implements OnInit {
   ngOnInit(): void {
     this.loading$ = this.dataService.loadingPromotions$;
   }
+
+  getPromotions():void {}
 }

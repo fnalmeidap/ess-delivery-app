@@ -4,6 +4,9 @@ export class PromotionService {
 	promotions: Promotion[] = [];
 
 	add(promotion: Promotion): Promotion {
+		let id = this.promotions.length + 1;
+		promotion.id = id;
+
 		this.promotions.push(new Promotion(promotion));
 		return promotion;
 	}

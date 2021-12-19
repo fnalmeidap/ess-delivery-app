@@ -5,11 +5,9 @@ export class PaymentService {
 
 	add(payment: Payment): Payment {
 		let id = this.paymentMethods.length + 1;
-
 		payment.id = id;
 
 		this.paymentMethods.push(new Payment(payment));
-
 		return payment;
 	}
 

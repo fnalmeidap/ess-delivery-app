@@ -24,16 +24,19 @@ export class FormPaymentsComponent implements OnInit {
   ngOnInit(): void {}
 
   public onClick(): void {
-    let data: Payment;
+    let data: Payment = {
+      value: String(this.value),
+      type: this.type,
+      status: 'Active',
+    };
 
-    if ((this.type !== undefined, this.value !== '')) {
-      data = {
-        value: String(this.value),
-        type: this.type,
-        status: 'Active',
-      };
+    this.dataService.updatePayments(data);
 
-      this.dataService.updatePayments(data);
-    }
+    this.dataService.payments$.subscribe((d) => {
+      console.log(d);
+    });
+    
+    this.dialogRef.close();
+   
   }
 }
