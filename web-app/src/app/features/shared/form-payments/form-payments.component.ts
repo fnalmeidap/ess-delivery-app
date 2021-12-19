@@ -27,7 +27,7 @@ export class FormPaymentsComponent implements OnInit {
     let data: Payment = {
       value: String(this.value),
       type: this.type,
-      status: 'Active',
+      status: 'Ativa',
     };
 
     this.dataService.updatePayments(data);
@@ -35,8 +35,8 @@ export class FormPaymentsComponent implements OnInit {
     this.dataService.payments$.subscribe((d) => {
       console.log(d);
     });
-    
+
     this.dialogRef.close();
-   
+
   }
 }
