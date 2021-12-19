@@ -7,6 +7,7 @@
       maxlength="30"
       placeholder="Ex: Milkshake de Côco"
       [(ngModel)]="productName"
+      name="promotion_namebox"
     />
   </mat-form-field>
 </div>
@@ -19,6 +20,7 @@
         matStartDate
         placeholder="Data de início"
         [(ngModel)]="from_date"
+        name="promotion_periodbox"
       />
       <input matEndDate placeholder="Data de fim" [(ngModel)]="to_date" />
     </mat-date-range-input>
@@ -27,4 +29,4 @@
   </mat-form-field>
 </div>
 
-<button mat-raised-button (click)="onClick()">Enviar</button>
+<button name="promotion_accept_button" mat-raised-button (click)="onClick()">Enviar</button>

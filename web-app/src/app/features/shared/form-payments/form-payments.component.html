@@ -1,8 +1,8 @@
 <div class="form">
   <mat-form-field appearance="fill">
     <mat-label>Tipo de pagamento</mat-label>
-    <mat-select [(ngModel)]="type">
-      <mat-option *ngFor="let type of types" [value]="type">
+    <mat-select [(ngModel)]="type" name="paymethod_select">
+      <mat-option *ngFor="let type of types" [value]="type" name="paymethod_option">
         {{ type }}
       </mat-option>
     </mat-select>
@@ -18,8 +18,9 @@
       maxlength="30"
       placeholder="Insira sua chave Pix ou cartão de credito"
       [(ngModel)]="value"
-    />
+      name="paymethod_keybox"
+      />
   </mat-form-field>
 </div>
 
-<button mat-raised-button (click)="onClick()">Enviar</button>
+<button name="paymethod_accept_button"mat-raised-button (click)="onClick()">Enviar</button>
