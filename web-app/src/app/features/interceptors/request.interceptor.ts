@@ -15,8 +15,6 @@ export class RequestInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    console.log(request.url);
-
     return next.handle(request);
   }
 }
