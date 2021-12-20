@@ -1,0 +1,18 @@
+<nav>
+  <div
+    *ngIf="!(loadingPro$ | async) && !(loadingPay$ | async)"
+    class="home-title"
+  >
+    <h1>Bem vindo, Thiago!</h1>
+    <div class="home-container">
+      <div class="home-table">
+        <h2>Promoções do restaurante</h2>
+        <app-overview-table></app-overview-table>
+      </div>
+      <div class="home-table">
+        <h2>Métodos de pagamentos</h2>
+        <app-payment-table></app-payment-table>
+      </div>
+    </div>
+  </div>
+</nav>

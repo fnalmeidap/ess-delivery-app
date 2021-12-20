@@ -1,0 +1,23 @@
+<div class="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo de pagamento</mat-label>
+    <mat-select [(ngModel)]="type" name="paymethod_select">
+      <mat-option *ngFor="let type of types" [value]="type" name="paymethod_option">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="status">
+      <mat-option *ngFor="let type of statusTypes" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<button name="paymethod_accept_button"mat-raised-button (click)="onClick()">Enviar</button>

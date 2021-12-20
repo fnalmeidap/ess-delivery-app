@@ -1,0 +1,16 @@
+<nav>
+  <div *ngIf="loading$ | async" class="loading-container">
+    <mat-spinner [mode]="'indeterminate'"> </mat-spinner>
+  </div>
+  <div [hidden]="loading$ | async" class="promotions-title">
+    <h1>Promoções</h1>
+    <div class="promotions-container">
+      <div class="addbutton">
+        <app-addButton name="promotions_new_button" [environment]="false"></app-addButton>
+      </div>
+      <div class="promotions-table">
+        <app-overview-table name="promotions_table"></app-overview-table>
+      </div>
+    </div>
+  </div>
+</nav>
