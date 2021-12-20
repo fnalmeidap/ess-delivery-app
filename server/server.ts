@@ -53,11 +53,6 @@ app.get("/payments/:id", function (req, res) {
 	}
 });
 
-app.post("/email", function (req: express.Request, res: express.Response) {
-  const email = new Mail();
-  const ans = email.sendMail();
-});
-
 app.post("/payments", function (req: express.Request, res: express.Response) {
 	const payment: Payment = <Payment>req.body;
 	try {
@@ -161,6 +156,19 @@ app.delete(
 		}
 	}
 );
+
+/*
+####################################################
+# 											Email										   #
+####################################################
+*/
+
+app.post("/email", function (req: express.Request, res: express.Response) {
+	const to = req.body.email;
+	const email = new Mail(to);
+
+	const ans = email.sendMail();
+});
 
 var server = app.listen(3000, function () {
 	console.log("Servidor iniciado.\n Vasco.");

@@ -43,6 +43,12 @@ export class DataService {
       });
   }
 
+  public sendEmail(email: string) {
+    this.http.post(this.BASE_URL + 'email', { email }).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   get promotions$() {
     return this.promotionSubject.asObservable();
   }
