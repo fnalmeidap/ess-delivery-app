@@ -87,9 +87,11 @@ app.delete(
 		const payment = paymentService.getById(id);
 		if (payment) {
 			paymentService.deleteById(id);
-			res.send({ message: `Payment ${id} deleted successfully` });
+			res.send({ status: 203 });
 		} else {
-			res.status(404).send({ message: `Payment ${id} could not be found` });
+			res
+				.status(404)
+				.send({ status: 404, message: `Payment ${id} could not be found` });
 		}
 	}
 );
@@ -150,9 +152,11 @@ app.delete(
 
 		if (promotion) {
 			promotionService.deleteById(id);
-			res.send({ message: `Promotion ${id} deleted successfully` });
+			res.send({ status: 203 });
 		} else {
-			res.status(404).send({ message: `Promotion ${id} could not be found` });
+			res
+				.status(404)
+				.send({ status: 404, message: `Payment ${id} could not be found` });
 		}
 	}
 );

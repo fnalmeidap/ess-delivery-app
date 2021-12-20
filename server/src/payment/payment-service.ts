@@ -56,8 +56,6 @@ export class PaymentService {
 			(payment) => payment.id != paymentId
 		);
 
-		console.log(payments);
-
 		this.paymentMethods = payments;
 	}
 
