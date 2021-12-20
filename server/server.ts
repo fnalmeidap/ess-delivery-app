@@ -1,11 +1,13 @@
 import bodyParser = require("body-parser");
 import express = require("express");
+// import cors = require('cors');
+import nodemailer = require("nodemailer");
 import { PaymentService } from "./src/payment/payment-service";
 import { Payment } from "./src/payment/payment";
+import { Mail } from "./src/email/email";
 
 import { PromotionService } from "./src/promotion/promotion-service";
 import { Promotion } from "./src/promotion/promotion";
-
 
 var app = express();
 
@@ -15,7 +17,7 @@ var allowCrossDomain = function (req: any, res: any, next: any) {
 	res.header("Access-Control-Allow-Headers", "Content-Type");
 	next();
 };
-
+// app.use(cors({origin: "*" }));
 app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
@@ -28,6 +30,13 @@ var paymentService: PaymentService = new PaymentService();
 #                              PAGAMENTOS                               #
 #########################################################################
 */
+
+enum Config {
+	HOST = "felipe nunes",
+	PORT = 587,
+	USER = "",
+	PASSWORD = "",
+}
 
 app.get("/payments", function (req, res) {
 	const payments = paymentService.get();
@@ -49,9 +58,9 @@ app.post("/payments", function (req: express.Request, res: express.Response) {
 	try {
 		const result = paymentService.add(payment);
 		if (result) {
-			res.status(201).send({ message: "Payment added successfully" });
+			res.status(201).send({ status: 201 });
 		} else {
-			res.status(403).send({ message: "Error creating new payment" });
+			res.status(403).send({ status: 403 });
 		}
 	} catch (err) {
 		const { message } = err;
@@ -78,9 +87,11 @@ app.delete(
 		const payment = paymentService.getById(id);
 		if (payment) {
 			paymentService.deleteById(id);
-			res.send({ message: `Payment ${id} deleted successfully` });
+			res.send({ status: 203 });
 		} else {
-			res.status(404).send({ message: `Payment ${id} could not be found` });
+			res
+				.status(404)
+				.send({ status: 404, message: `Payment ${id} could not be found` });
 		}
 	}
 );
@@ -141,13 +152,27 @@ app.delete(
 
 		if (promotion) {
 			promotionService.deleteById(id);
-			res.send({ message: `Promotion ${id} deleted successfully` });
+			res.send({ status: 203 });
 		} else {
-			res.status(404).send({ message: `Promotion ${id} could not be found` });
+			res
+				.status(404)
+				.send({ status: 404, message: `Payment ${id} could not be found` });
 		}
 	}
 );
 
+/*
+####################################################
+# 											Email										   #
+####################################################
+*/
+
+app.post("/email", function (req: express.Request, res: express.Response) {
+	const to = req.body.email;
+	const email = new Mail(to);
+
+	const ans = email.sendMail();
+});
 
 var server = app.listen(3000, function () {
 	console.log("Servidor iniciado.\n Vasco.");

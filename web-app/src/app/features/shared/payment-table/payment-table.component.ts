@@ -11,7 +11,7 @@ import { DataService } from '../../services/data.service';
 })
 export class PaymentTableComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<Payment> | undefined;
-  displayedColumns: string[] = ['Tipo', 'Status'];
+  displayedColumns: string[] = ['Tipo', 'Status', 'Ações'];
   data$: Observable<Payment[]> | undefined;
   dataSource: MatTableDataSource<any>;
   loading: boolean = true;
@@ -21,11 +21,18 @@ export class PaymentTableComponent implements OnInit {
   ngOnInit(): void {
     this.data$ = this.dataService.payments$;
 
-    this.data$
-      .subscribe((data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.loading = false;
-        this.table?.renderRows();
-      })
+    this.data$.subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.loading = false;
+      this.table?.renderRows();
+    });
+  }
+
+  onDelete(element: Payment) {
+    this.dataService.deletePayment(element).subscribe((res) => {
+      if (res.status == 203) {
+        this.dataService.getPayments();
+      }
+    });
   }
 }

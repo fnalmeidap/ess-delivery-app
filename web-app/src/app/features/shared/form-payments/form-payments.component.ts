@@ -13,7 +13,17 @@ export class FormPaymentsComponent implements OnInit {
   value?: string;
   status?: string;
 
-  types = ['Dinheiro', 'Mastercard', 'Visa', 'PayPal', 'Google Pay', 'Apple Pay', 'Cielo', 'PicPay', 'Pix'];
+  types = [
+    'Dinheiro',
+    'Mastercard',
+    'Visa',
+    'PayPal',
+    'Google Pay',
+    'Apple Pay',
+    'Cielo',
+    'PicPay',
+    'Pix',
+  ];
   statusTypes = ['Ativa', 'Inativa'];
 
   type: string = 'CASH';
@@ -34,11 +44,6 @@ export class FormPaymentsComponent implements OnInit {
 
     this.dataService.updatePayments(data);
 
-    this.dataService.payments$.subscribe((d) => {
-      console.log(d);
-    });
-
     this.dialogRef.close();
-
   }
 }

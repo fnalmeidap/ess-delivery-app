@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { DataService } from './../../services/data.service';
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -16,4 +15,5 @@ export class HomeComponent implements OnInit {
     this.loadingPay$ = this.dataService.loadingPromotions$;
     this.loadingPro$ = this.dataService.loadingPayments$;
   }
+
 }

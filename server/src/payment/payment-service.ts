@@ -3,20 +3,48 @@ import { Payment } from "./payment";
 export class PaymentService {
 	paymentMethods: Payment[] = [];
 
-	add(payment: Payment): Payment {
-		let id = this.paymentMethods.length + 1;
+	add(payment: Payment): boolean {
 		let newType = true;
-    payment.id = id;
 
-    this.paymentMethods.forEach(element => {
-      if ( element.type == payment.type){
-        newType = false;
-      }
-    })
-    if (newType){
-      this.paymentMethods.push(new Payment(payment));
-    }
-		return payment;
+		let valid_values = [
+			"Dinheiro",
+			"Mastercard",
+			"Visa",
+			"PayPal",
+			"Google Pay",
+			"Apple Pay",
+			"Cielo",
+			"PicPay",
+			"Pix",
+		];
+
+		let steps = { stepOne: false, stepTwo: false };
+
+		if (valid_values.includes(payment.type)) {
+			steps.stepOne = true;
+		}
+
+		if (payment.status === "Ativa" || payment.status === "Inativa") {
+			steps.stepTwo = true;
+		}
+
+		if (steps.stepOne && steps.stepTwo) {
+			payment.id = this.paymentMethods.length;
+
+			this.paymentMethods.forEach((element) => {
+				if (element.type == payment.type) {
+					newType = false;
+				}
+			});
+
+			if (newType) {
+				this.paymentMethods.push(new Payment(payment));
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	update(payment: Payment): boolean {
@@ -35,8 +63,6 @@ export class PaymentService {
 		let payments = this.paymentMethods.filter(
 			(payment) => payment.id != paymentId
 		);
-
-		console.log(payments);
 
 		this.paymentMethods = payments;
 	}

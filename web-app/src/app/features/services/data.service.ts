@@ -43,6 +43,12 @@ export class DataService {
       });
   }
 
+  public sendEmail(email: string) {
+    this.http.post(this.BASE_URL + 'email', { email }).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   get promotions$() {
     return this.promotionSubject.asObservable();
   }
@@ -70,9 +76,23 @@ export class DataService {
   public updatePromotions(data: Promotion) {
     this.http
       .post(this.BASE_URL + 'promotions', data)
-      .subscribe()
+      .subscribe((res) => {
+        console.log(res);
+      })
       .add(() => {
         this.getPromotions();
       });
+  }
+
+  public deletePromotion(promotion: Promotion) {
+    return this.http.delete<{ status: number; message?: string }>(
+      this.BASE_URL + `promotions/${promotion.id}`
+    );
+  }
+
+  public deletePayment(payment: Payment) {
+    return this.http.delete<{ status: number; message?: string }>(
+      this.BASE_URL + `payments/${payment.id}`
+    );
   }
 }
