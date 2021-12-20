@@ -77,7 +77,7 @@ describe("O servidor", () => {
 	it("Cadastra novo método de pagamento válido", () => {
 		const body = {
 			type: "Visa",
-			status: "Ativo",
+			status: "Ativa",
 			value: "Visa",
 		};
 
