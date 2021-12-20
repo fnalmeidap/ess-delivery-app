@@ -1,4 +1,4 @@
-import { Promotion } from './../interfaces/promotion.interface';
+import { Promotion } from '../interfaces/promotion.interface';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -40,7 +40,6 @@ export class OverviewTableComponent implements OnInit {
 
   onDelete(element: Promotion) {
     this.dataService.deletePromotion(element).subscribe((res) => {
-      console.log(res);
       if (res.status == 203) {
         this.dataService.getPromotions();
       }

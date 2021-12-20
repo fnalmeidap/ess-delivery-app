@@ -33,7 +33,7 @@ export class Mail {
 			subject: "assunto do email",
 			from: "Nome do enviador",
 			to: this.to,
-      html:`
+			html: `
         <html>
           <body>
             <strong>Pedido:</strong> 43JK2AS7HF
@@ -44,7 +44,7 @@ export class Mail {
             <strong>Itens:</strong> Açaí com banana, Milk Shake
           </body>
         </html>
-      `
+      `,
 		});
 	}
 }

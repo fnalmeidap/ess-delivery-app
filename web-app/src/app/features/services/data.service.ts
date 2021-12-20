@@ -1,6 +1,5 @@
-import { Promotion } from './../shared/interfaces/promotion.interface';
 import { Payment } from './../shared/interfaces/payment.interface';
-import { Product } from './../shared/interfaces/product.interface';
+import { Promotion } from '../shared/interfaces/promotion.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -25,7 +24,6 @@ export class DataService {
     this.http
       .get<Promotion[]>(this.BASE_URL + 'promotions')
       .subscribe((promotions) => {
-        console.log(promotions);
         this.promotionSubject.next(promotions);
         this.promotionLoadingSubject.next(false);
       });
@@ -37,16 +35,13 @@ export class DataService {
     this.http
       .get<Payment[]>(this.BASE_URL + 'payments')
       .subscribe((payments) => {
-        console.log(payments);
         this.paymentSubject.next(payments);
         this.paymentLoadingSubject.next(false);
       });
   }
 
   public sendEmail(email: string) {
-    this.http.post(this.BASE_URL + 'email', { email }).subscribe((res) => {
-      console.log(res);
-    });
+    this.http.post(this.BASE_URL + 'email', { email }).subscribe();
   }
 
   get promotions$() {
@@ -76,9 +71,7 @@ export class DataService {
   public updatePromotions(data: Promotion) {
     this.http
       .post(this.BASE_URL + 'promotions', data)
-      .subscribe((res) => {
-        console.log(res);
-      })
+      .subscribe()
       .add(() => {
         this.getPromotions();
       });

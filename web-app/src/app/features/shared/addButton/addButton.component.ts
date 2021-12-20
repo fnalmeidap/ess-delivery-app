@@ -13,9 +13,7 @@ export class addButtonComponent implements OnInit {
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    console.log(this.environment);
-  }
+  ngOnInit(): void {}
 
   openDialog() {
     if (this.environment == false) {

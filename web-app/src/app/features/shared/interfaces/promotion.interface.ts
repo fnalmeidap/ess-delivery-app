@@ -1,5 +1,5 @@
 export enum types {
-  'STATUS_TYPE' = 'Ativo'
+  'STATUS_TYPE' = 'Ativo',
 }
 
 export interface Promotion {
