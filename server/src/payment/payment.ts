@@ -1,7 +1,16 @@
 export class Payment {
 	id: number;
-	type: string;
-	status: string;
+	type:
+		| "Dinheiro"
+		| "Mastercard"
+		| "Visa"
+		| "PayPal"
+		| "Google Pay"
+		| "Apple Pay"
+		| "Cielo"
+		| "PicPay"
+		| "Pix";
+	status: "Ativo" | "Inativo";
 	value: string;
 
 	constructor(payment: Payment) {

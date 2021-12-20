@@ -1,14 +1,27 @@
+import { response } from "express";
 import { Promotion } from "./promotion";
 
 export class PromotionService {
 	promotions: Promotion[] = [];
 
-	add(promotion: Promotion): Promotion {
+	isIsoDate(date: string): boolean {
+		if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(date)) return false;
+		var d = new Date(date);
+		return d.toISOString() === date;
+	}
+
+	add(promotion: Promotion): boolean {
 		let id = this.promotions.length + 1;
 		promotion.id = id;
 
-		this.promotions.push(new Promotion(promotion));
-		return promotion;
+		if (
+			this.isIsoDate(String(promotion.start)) &&
+			this.isIsoDate(String(promotion.end))
+		) {
+			this.promotions.push(new Promotion(promotion));
+			return true;
+		}
+		return false;
 	}
 
 	update(promotion: Promotion): boolean {

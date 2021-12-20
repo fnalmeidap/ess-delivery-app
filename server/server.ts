@@ -8,7 +8,6 @@ import { Payment } from "./src/payment/payment";
 import { PromotionService } from "./src/promotion/promotion-service";
 import { Promotion } from "./src/promotion/promotion";
 
-
 var app = express();
 
 var allowCrossDomain = function (req: any, res: any, next: any) {
@@ -32,10 +31,10 @@ var paymentService: PaymentService = new PaymentService();
 */
 
 enum Config {
-  HOST = "felipe nunes",
-  PORT = 587,
-  USER = "",
-  PASSWORD = ""
+	HOST = "felipe nunes",
+	PORT = 587,
+	USER = "",
+	PASSWORD = "",
 }
 
 app.get("/payments", function (req, res) {
@@ -56,12 +55,11 @@ app.get("/payments/:id", function (req, res) {
 app.post("/payments", function (req: express.Request, res: express.Response) {
 	const payment: Payment = <Payment>req.body;
 	try {
-    console.log(Config.HOST);
 		const result = paymentService.add(payment);
 		if (result) {
-			res.status(201).send({ message: "Payment added successfully" });
+			res.status(201).send({ status: 201 });
 		} else {
-			res.status(403).send({ message: "Error creating new payment" });
+			res.status(403).send({ status: 403 });
 		}
 	} catch (err) {
 		const { message } = err;
