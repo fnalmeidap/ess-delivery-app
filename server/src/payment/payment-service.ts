@@ -5,9 +5,17 @@ export class PaymentService {
 
 	add(payment: Payment): Payment {
 		let id = this.paymentMethods.length + 1;
-		payment.id = id;
+		let newType = true;
+    payment.id = id;
 
-		this.paymentMethods.push(new Payment(payment));
+    this.paymentMethods.forEach(element => {
+      if ( element.type == payment.type){
+        newType = false;
+      }
+    })
+    if (newType){
+      this.paymentMethods.push(new Payment(payment));
+    }
 		return payment;
 	}
 

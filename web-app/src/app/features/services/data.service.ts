@@ -59,19 +59,20 @@ export class DataService {
   }
 
   public updatePayments(data: Payment) {
-    this.http.post(this.BASE_URL + 'payments', data).subscribe((res) => {
-      console.log(res);
-    });
-    this.paymentSubject.value.push(data);
-    this.paymentSubject.next(this.paymentSubject.value);
+    this.http
+      .post(this.BASE_URL + 'payments', data)
+      .subscribe()
+      .add(() => {
+        this.getPayments();
+      });
   }
 
   public updatePromotions(data: Promotion) {
-    this.http.post(this.BASE_URL + 'promotions', data).subscribe((res) => {
-      console.log(res);
-    });
-
-    this.promotionSubject.value.push(data);
-    this.promotionSubject.next(this.promotionSubject.value);
+    this.http
+      .post(this.BASE_URL + 'promotions', data)
+      .subscribe()
+      .add(() => {
+        this.getPromotions();
+      });
   }
 }
