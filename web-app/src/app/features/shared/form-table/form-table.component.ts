@@ -30,10 +30,6 @@ export class FormTableComponent implements OnInit {
 
     this.dataService.updatePromotions(data);
 
-    this.dataService.promotions$.subscribe((d) => {
-      console.log(d);
-    });
-
     this.dialogRef.close();
   }
 }

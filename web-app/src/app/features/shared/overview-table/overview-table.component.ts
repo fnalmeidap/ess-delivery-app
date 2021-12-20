@@ -18,7 +18,7 @@ export class OverviewTableComponent implements OnInit {
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['Nome', 'Início', 'Fim'];
+  displayedColumns: string[] = ['Nome', 'Início', 'Fim', 'Ações'];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource(
     this.ELEMENT_DATA
@@ -35,6 +35,15 @@ export class OverviewTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.loading = false;
       this.table?.renderRows();
+    });
+  }
+
+  onDelete(element: Promotion) {
+    this.dataService.deletePromotion(element).subscribe((res) => {
+      console.log(res);
+      if (res.status == 203) {
+        this.dataService.getPromotions();
+      }
     });
   }
 }

@@ -65,19 +65,36 @@ export class DataService {
   }
 
   public updatePayments(data: Payment) {
-    this.http.post(this.BASE_URL + 'payments', data).subscribe((res) => {
-      console.log(res);
-    });
-    this.paymentSubject.value.push(data);
-    this.paymentSubject.next(this.paymentSubject.value);
+    this.http
+      .post(this.BASE_URL + 'payments', data)
+      .subscribe((res) => {
+        console.log(res);
+      })
+      .add(() => {
+        this.getPayments();
+      });
   }
 
   public updatePromotions(data: Promotion) {
-    this.http.post(this.BASE_URL + 'promotions', data).subscribe((res) => {
-      console.log(res);
-    });
+    this.http
+      .post(this.BASE_URL + 'promotions', data)
+      .subscribe((res) => {
+        console.log(res);
+      })
+      .add(() => {
+        this.getPromotions();
+      });
+  }
 
-    this.promotionSubject.value.push(data);
-    this.promotionSubject.next(this.promotionSubject.value);
+  public deletePromotion(promotion: Promotion) {
+    return this.http.delete<{ status: number; message?: string }>(
+      this.BASE_URL + `promotions/${promotion.id}`
+    );
+  }
+
+  public deletePayment(payment: Payment) {
+    return this.http.delete<{ status: number; message?: string }>(
+      this.BASE_URL + `payments/${payment.id}`
+    );
   }
 }

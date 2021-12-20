@@ -4,16 +4,13 @@
   [dataSource]="dataSource"
   class="mat-elevation-z8"
 >
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Position Column -->
+  <!-- Name Column -->
   <ng-container matColumnDef="Nome">
     <th mat-header-cell *matHeaderCellDef>Nome</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
   </ng-container>
 
-  <!-- Weight Column -->
+  <!-- Start date Column -->
   <ng-container matColumnDef="Início">
     <th mat-header-cell *matHeaderCellDef>Status</th>
     <td mat-cell *matCellDef="let element">
@@ -21,11 +18,24 @@
     </td>
   </ng-container>
 
-  <!-- Symbol Column -->
+  <!-- End date Column -->
   <ng-container matColumnDef="Fim">
     <th mat-header-cell *matHeaderCellDef>Expira</th>
     <td mat-cell *matCellDef="let element">
       {{ element.end | date: "short" }}
+    </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="Ações">
+    <th mat-header-cell *matHeaderCellDef>Ações</th>
+    <td mat-cell *matCellDef="let element">
+      <!-- <button mat-icon-button>
+        <mat-icon> edit </mat-icon>
+      </button> -->
+      <button mat-icon-button (click)="onDelete(element)">
+        <mat-icon> delete </mat-icon>
+      </button>
     </td>
   </ng-container>
 
