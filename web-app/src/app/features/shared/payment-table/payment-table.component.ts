@@ -21,6 +21,10 @@ export class PaymentTableComponent implements OnInit {
   ngOnInit(): void {
     this.data$ = this.dataService.payments$;
 
+    /**
+     * Subscribe to receive data from the promotion subject.
+     * When data is received or updated, update the table.
+     */
     this.data$.subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
       this.loading = false;
@@ -28,6 +32,10 @@ export class PaymentTableComponent implements OnInit {
     });
   }
 
+  /**
+   * Callback to create a delete request.
+   * @param element Element to be deleted
+   */
   onDelete(element: Payment) {
     this.dataService.deletePayment(element).subscribe((res) => {
       if (res.status == 203) {

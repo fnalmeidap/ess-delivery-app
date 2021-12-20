@@ -8,6 +8,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
+  /**
+   * Subjects are for spread information for all subscribed components.
+   */
+
   private promotionSubject = new BehaviorSubject<any>([]);
   private paymentSubject = new BehaviorSubject<any>([]);
 
@@ -18,6 +22,9 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Get all promotions from the server.
+   */
   public getPromotions() {
     this.promotionLoadingSubject.next(true);
 
@@ -29,8 +36,14 @@ export class DataService {
       });
   }
 
+  /**
+   * Get all payments from the server.
+   */
   public getPayments() {
     this.paymentLoadingSubject.next(true);
+
+    // We've made the subscribe here because we need to wait for the data to be loaded.
+    // After that, we spread the information to all subscribed components.
 
     this.http
       .get<Payment[]>(this.BASE_URL + 'payments')
@@ -40,18 +53,33 @@ export class DataService {
       });
   }
 
+  /**
+   * Function to send the email for users.
+   * @param email Address that will receive the email.
+   */
   public sendEmail(email: string) {
     this.http.post(this.BASE_URL + 'email', { email }).subscribe();
   }
 
+  /**
+   * Function to get the promotions list as observable.
+   * @readonly
+   */
   get promotions$() {
     return this.promotionSubject.asObservable();
   }
 
+  /**
+   * Function to get the payments list as observable.
+   * @readonly
+   */
   get payments$() {
     return this.paymentSubject.asObservable();
   }
 
+  /**
+   * We use loading as observable so that way we can use pipe async on the template.
+   */
   get loadingPromotions$() {
     return this.promotionLoadingSubject.asObservable();
   }
@@ -59,6 +87,10 @@ export class DataService {
     return this.paymentLoadingSubject.asObservable();
   }
 
+  /**
+   * Creates the requisition to add payment.
+   * @param data data to be sent to the server
+   */
   public updatePayments(data: Payment) {
     this.http
       .post(this.BASE_URL + 'payments', data)
@@ -68,6 +100,10 @@ export class DataService {
       });
   }
 
+  /**
+   * Creates the requisition to add promotion.
+   * @param data data to be sent to the server
+   */
   public updatePromotions(data: Promotion) {
     this.http
       .post(this.BASE_URL + 'promotions', data)
@@ -77,12 +113,22 @@ export class DataService {
       });
   }
 
+  /**
+   * Creates the requisition to delete promotion.
+   * @param promotion Promotion that will be deleted
+   * @returns Observable for the delete request
+   */
   public deletePromotion(promotion: Promotion) {
     return this.http.delete<{ status: number; message?: string }>(
       this.BASE_URL + `promotions/${promotion.id}`
     );
   }
 
+  /**
+   * Creates the requisition to delete payment.
+   * @param payment Payment that will be deleted
+   * @returns Observable for the delete request
+   */
   public deletePayment(payment: Payment) {
     return this.http.delete<{ status: number; message?: string }>(
       this.BASE_URL + `payments/${payment.id}`

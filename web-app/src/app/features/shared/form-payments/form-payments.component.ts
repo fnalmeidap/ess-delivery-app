@@ -24,6 +24,7 @@ export class FormPaymentsComponent implements OnInit {
     'PicPay',
     'Pix',
   ];
+
   statusTypes = ['Ativa', 'Inativa'];
 
   type: string = 'CASH';
@@ -35,6 +36,10 @@ export class FormPaymentsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Callback for button click on form.
+   * Request to the server to create a new payment.
+   */
   public onClick(): void {
     let data: Payment = {
       value: String(this.value),

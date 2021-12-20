@@ -16,6 +16,7 @@ export class addButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog() {
+    // Depending on the environment we open different forms.
     if (this.environment == false) {
       const dialogRef = this.dialog.open(FormTableComponent);
       dialogRef.afterClosed().subscribe((result) => {});

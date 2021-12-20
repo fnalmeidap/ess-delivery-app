@@ -31,13 +31,20 @@ export class OverviewTableComponent implements OnInit {
   ngOnInit(): void {
     this.data$ = this.dataService.promotions$;
 
+    /**
+     * Subscribe to receive data from the promotion subject.
+     * When data is received or updated, update the table.
+     */
     this.data$.subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
       this.loading = false;
       this.table?.renderRows();
     });
   }
-
+  /**
+   * Callback to create a delete request.
+   * @param element Element to be deleted
+   */
   onDelete(element: Promotion) {
     this.dataService.deletePromotion(element).subscribe((res) => {
       if (res.status == 203) {
