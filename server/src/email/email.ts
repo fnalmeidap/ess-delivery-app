@@ -33,6 +33,18 @@ export class Mail {
 			subject: "assunto do email",
 			from: "Nome do enviador",
 			to: this.to,
+      html:`
+        <html>
+          <body>
+            <strong>Pedido:</strong> 43JK2AS7HF
+            <strong>Nome:</strong> Cliente da Silva
+            <strong>Endereço:</strong> Endereço do cliente
+            <br>
+            <strong>Valor da compra:</strong> R$ 10,00
+            <strong>Itens:</strong> Açaí com banana, Milk Shake
+          </body>
+        </html>
+      `
 		});
 	}
 }
