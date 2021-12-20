@@ -24,6 +24,10 @@ export class FormTableComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Callback for button click on form.
+   * Request to the server to create a new promotion.
+   */
   public onClick(): void {
     let data: Promotion = {
       name: String(this.productName),
