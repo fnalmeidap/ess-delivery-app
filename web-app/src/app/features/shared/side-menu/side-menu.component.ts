@@ -14,4 +14,9 @@ export class SideMenuComponent implements OnInit {
     this.dataService.getPayments();
     this.dataService.getPromotions();
   }
+
+  sendMail() {
+    console.log("enviar email")
+  }
+
 }

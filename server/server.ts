@@ -4,6 +4,7 @@ import express = require("express");
 import nodemailer = require("nodemailer");
 import { PaymentService } from "./src/payment/payment-service";
 import { Payment } from "./src/payment/payment";
+import { Mail } from "./src/email/email";
 
 import { PromotionService } from "./src/promotion/promotion-service";
 import { Promotion } from "./src/promotion/promotion";
@@ -51,6 +52,11 @@ app.get("/payments/:id", function (req, res) {
 	} else {
 		res.status(404).send({ message: `Payment ${id} could not be found` });
 	}
+});
+
+app.post("/email", function (req: express.Request, res: express.Response) {
+  const email = new Mail();
+  const ans = email.sendMail();
 });
 
 app.post("/payments", function (req: express.Request, res: express.Response) {
