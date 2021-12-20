@@ -13,11 +13,10 @@ export class addButtonComponent implements OnInit {
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    console.log(this.environment);
-  }
+  ngOnInit(): void {}
 
   openDialog() {
+    // Depending on the environment we open different forms.
     if (this.environment == false) {
       const dialogRef = this.dialog.open(FormTableComponent);
       dialogRef.afterClosed().subscribe((result) => {});

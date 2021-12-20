@@ -6,6 +6,7 @@ export enum types {
 }
 
 export interface Payment {
+  id?: number;
   type: string;
   value: string;
   status: string;

@@ -1,4 +1,4 @@
-import { Promotion } from './../interfaces/promotion.interface';
+import { Promotion } from '../interfaces/promotion.interface';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class OverviewTableComponent implements OnInit {
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['Nome', 'Início', 'Fim'];
+  displayedColumns: string[] = ['Nome', 'Início', 'Fim', 'Ações'];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource(
     this.ELEMENT_DATA
@@ -31,10 +31,25 @@ export class OverviewTableComponent implements OnInit {
   ngOnInit(): void {
     this.data$ = this.dataService.promotions$;
 
+    /**
+     * Subscribe to receive data from the promotion subject.
+     * When data is received or updated, update the table.
+     */
     this.data$.subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
       this.loading = false;
       this.table?.renderRows();
+    });
+  }
+  /**
+   * Callback to create a delete request.
+   * @param element Element to be deleted
+   */
+  onDelete(element: Promotion) {
+    this.dataService.deletePromotion(element).subscribe((res) => {
+      if (res.status == 203) {
+        this.dataService.getPromotions();
+      }
     });
   }
 }

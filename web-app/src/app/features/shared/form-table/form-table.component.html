@@ -14,6 +14,17 @@
 
 <div class="form">
   <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)] =   "status">
+      <mat-option *ngFor="let type of types" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form">
+  <mat-form-field appearance="fill">
     <mat-label>Periodo da promoção</mat-label>
     <mat-date-range-input [rangePicker]="picker">
       <input

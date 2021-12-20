@@ -14,4 +14,11 @@ export class SideMenuComponent implements OnInit {
     this.dataService.getPayments();
     this.dataService.getPromotions();
   }
+
+  /**
+   * Callback to sendEmail button click.
+   */
+  sendMail() {
+    this.dataService.sendEmail('fnalmeida.p@gmail.com');
+  }
 }
