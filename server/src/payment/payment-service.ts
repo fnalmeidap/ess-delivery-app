@@ -3,6 +3,11 @@ import { Payment } from "./payment";
 export class PaymentService {
 	paymentMethods: Payment[] = [];
 
+	/**
+	 * Adds a new payment method to the list of payment methods
+	 * @param payment Payment method to be added
+	 * @returns 'true' for success, 'false' for failure
+	 */
 	add(payment: Payment): boolean {
 		let newType = true;
 
@@ -47,6 +52,11 @@ export class PaymentService {
 		return false;
 	}
 
+	/**
+	 * Update a payment method searching on list by id
+	 * @param payment Payment method to be updated
+	 * @returns 'true' for success, 'false' for failure
+	 */
 	update(payment: Payment): boolean {
 		const toBeUpdated = this.getById(payment.id);
 
@@ -59,6 +69,10 @@ export class PaymentService {
 		return true;
 	}
 
+	/**
+	 * Deletes a payment method on list by id
+	 * @param paymentId Payment id to be searched and deleted
+	 */
 	deleteById(paymentId: number): void {
 		let payments = this.paymentMethods.filter(
 			(payment) => payment.id != paymentId
@@ -67,14 +81,27 @@ export class PaymentService {
 		this.paymentMethods = payments;
 	}
 
+	/**
+	 * Deletes a payment method on list by name
+	 * @param paymentName Payment name to be searched and deleted
+	 */
 	deleteByName(paymentName: string): void {
 		this.paymentMethods.filter((payment) => payment.value != paymentName);
 	}
 
+	/**
+	 * Getter for payment methods list
+	 * @returns All payment methods
+	 */
 	get(): Payment[] {
 		return this.paymentMethods;
 	}
 
+	/**
+	 * Search for a payment method on list by id
+	 * @param paymentId Payment id to be searched
+	 * @returns Payment method by id
+	 */
 	getById(paymentId: number): Payment {
 		return this.paymentMethods.find(({ id }) => id == paymentId);
 	}

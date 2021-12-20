@@ -1,5 +1,6 @@
 import * as nodemailer from "nodemailer";
 
+// Configuration class for email service
 class Config {
 	HOST = "smtp.gmail.com";
 	PORT = 587;
@@ -14,6 +15,9 @@ export class Mail {
 		public message?: string
 	) {}
 
+	/**
+	 * Email sender
+	 */
 	async sendMail() {
 		let config = new Config();
 

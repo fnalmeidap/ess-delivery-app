@@ -1,4 +1,6 @@
 export class Payment {
+	// Payment class and methods
+
 	id: number;
 	type:
 		| "Dinheiro"

@@ -1,15 +1,13 @@
 import bodyParser = require("body-parser");
 import express = require("express");
-// import cors = require('cors');
-import nodemailer = require("nodemailer");
-import { PaymentService } from "./src/payment/payment-service";
-import { Payment } from "./src/payment/payment";
-import { Mail } from "./src/email/email";
-
-import { PromotionService } from "./src/promotion/promotion-service";
-import { Promotion } from "./src/promotion/promotion";
 
 var app = express();
+
+import { PaymentService } from "./src/payment/payment-service";
+import { PromotionService } from "./src/promotion/promotion-service";
+import { Promotion } from "./src/promotion/promotion";
+import { Payment } from "./src/payment/payment";
+import { Mail } from "./src/email/email";
 
 var allowCrossDomain = function (req: any, res: any, next: any) {
 	res.header("Access-Control-Allow-Origin", "*");
@@ -17,7 +15,9 @@ var allowCrossDomain = function (req: any, res: any, next: any) {
 	res.header("Access-Control-Allow-Headers", "Content-Type");
 	next();
 };
+
 // app.use(cors({origin: "*" }));
+
 app.use(allowCrossDomain);
 
 app.use(bodyParser.json());
@@ -31,32 +31,38 @@ var paymentService: PaymentService = new PaymentService();
 #########################################################################
 */
 
-enum Config {
-	HOST = "felipe nunes",
-	PORT = 587,
-	USER = "",
-	PASSWORD = "",
-}
-
+/**
+ * GET /payments/
+ */
 app.get("/payments", function (req, res) {
 	const payments = paymentService.get();
 	res.send(payments);
 });
 
+/**
+ * GET /payments/:id
+ */
 app.get("/payments/:id", function (req, res) {
 	const id = parseInt(req.params.id);
 	const payment = paymentService.getById(id);
 	if (payment) {
+		// Only send the payment if it exists
 		res.send(payment);
 	} else {
+		// Otherwise send a 404 error
 		res.status(404).send({ message: `Payment ${id} could not be found` });
 	}
 });
 
+/**
+ * POST /payments/
+ */
 app.post("/payments", function (req: express.Request, res: express.Response) {
 	const payment: Payment = <Payment>req.body;
 	try {
 		const result = paymentService.add(payment);
+		// Result depends on the success of the operation.
+		// If successful, the result is the added payment
 		if (result) {
 			res.status(201).send({ status: 201 });
 		} else {
@@ -68,9 +74,14 @@ app.post("/payments", function (req: express.Request, res: express.Response) {
 	}
 });
 
+/**
+ * PUT /payments
+ */
 app.put("/payments", function (req: express.Request, res: express.Response) {
 	const payment: Payment = <Payment>req.body;
 	const result = paymentService.update(payment);
+	// Result depends on the success of the operation.
+	// If successful, the result is true.
 	if (result) {
 		res.send(result);
 	} else {
@@ -80,6 +91,9 @@ app.put("/payments", function (req: express.Request, res: express.Response) {
 	}
 });
 
+/**
+ * DELETE /payments/:id
+ */
 app.delete(
 	"/payments/:id",
 	function (req: express.Request, res: express.Response) {
@@ -102,11 +116,17 @@ app.delete(
 #########################################################################
 */
 
+/**
+ * GET /promotions/
+ */
 app.get("/promotions", function (req, res) {
 	const promotions = promotionService.get();
 	res.send(promotions);
 });
 
+/**
+ * GET /promotions/:id
+ */
 app.get("/promotions/:id", function (req, res) {
 	const id = parseInt(req.params.id);
 	const promotion = promotionService.getById(id);
@@ -117,6 +137,9 @@ app.get("/promotions/:id", function (req, res) {
 	}
 });
 
+/**
+ * POST /promotions/
+ */
 app.post("/promotions", function (req: express.Request, res: express.Response) {
 	const promotion: Promotion = <Promotion>req.body;
 	try {
@@ -132,6 +155,9 @@ app.post("/promotions", function (req: express.Request, res: express.Response) {
 	}
 });
 
+/**
+ * PUT /promotions
+ */
 app.put("/promotions", function (req: express.Request, res: express.Response) {
 	const promotion: Promotion = <Promotion>req.body;
 	const result = promotionService.update(promotion);
@@ -144,6 +170,9 @@ app.put("/promotions", function (req: express.Request, res: express.Response) {
 	}
 });
 
+/**
+ * DELETE /promotions/:id
+ */
 app.delete(
 	"/promotions/:id",
 	function (req: express.Request, res: express.Response) {
@@ -167,6 +196,9 @@ app.delete(
 ####################################################
 */
 
+/**
+ * Send email
+ */
 app.post("/email", function (req: express.Request, res: express.Response) {
 	const to = req.body.email;
 	const email = new Mail(to);
@@ -175,7 +207,7 @@ app.post("/email", function (req: express.Request, res: express.Response) {
 });
 
 var server = app.listen(3000, function () {
-	console.log("Servidor iniciado.\n Vasco.");
+	console.log("Servidor iniciado...");
 });
 
 function closeServer(): void {
