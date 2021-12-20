@@ -3,12 +3,40 @@ import { Payment } from "./payment";
 export class PaymentService {
 	paymentMethods: Payment[] = [];
 
-	add(payment: Payment): Payment {
-		let id = this.paymentMethods.length + 1;
-		payment.id = id;
+	add(payment: Payment): boolean {
+		// field value must be one of the following:
+		// "Dinheiro", "Mastercard", "Visa", "PayPal", "Google Pay", "Apple Pay", "Cielo", "PicPay", "Pix"
 
-		this.paymentMethods.push(new Payment(payment));
-		return payment;
+		let valid_values = [
+			"Dinheiro",
+			"Mastercard",
+			"Visa",
+			"PayPal",
+			"Google Pay",
+			"Apple Pay",
+			"Cielo",
+			"PicPay",
+			"Pix",
+		];
+
+		let steps = { stepOne: false, stepTwo: false };
+
+		if (valid_values.includes(payment.type)) {
+			steps.stepOne = true;
+		}
+
+		if (payment.status === "Ativo" || payment.status === "Inativo") {
+			steps.stepTwo = true;
+		}
+
+		if (steps.stepOne && steps.stepTwo) {
+			payment.id = this.paymentMethods.length + 1;
+
+			this.paymentMethods.push(new Payment(payment));
+			return true;
+		}
+
+		return false;
 	}
 
 	update(payment: Payment): boolean {
