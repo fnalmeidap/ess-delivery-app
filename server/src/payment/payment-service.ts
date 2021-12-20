@@ -4,8 +4,7 @@ export class PaymentService {
 	paymentMethods: Payment[] = [];
 
 	add(payment: Payment): boolean {
-		// field value must be one of the following:
-		// "Dinheiro", "Mastercard", "Visa", "PayPal", "Google Pay", "Apple Pay", "Cielo", "PicPay", "Pix"
+		let newType = true;
 
 		let valid_values = [
 			"Dinheiro",
@@ -25,14 +24,23 @@ export class PaymentService {
 			steps.stepOne = true;
 		}
 
-		if (payment.status === "Ativo" || payment.status === "Inativo") {
+		if (payment.status === "Ativa" || payment.status === "Inativa") {
 			steps.stepTwo = true;
 		}
 
 		if (steps.stepOne && steps.stepTwo) {
-			payment.id = this.paymentMethods.length + 1;
+			payment.id = this.paymentMethods.length;
 
-			this.paymentMethods.push(new Payment(payment));
+			this.paymentMethods.forEach((element) => {
+				if (element.type == payment.type) {
+					newType = false;
+				}
+			});
+
+			if (newType) {
+				this.paymentMethods.push(new Payment(payment));
+			}
+
 			return true;
 		}
 

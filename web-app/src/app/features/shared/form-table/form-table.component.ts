@@ -11,8 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormTableComponent implements OnInit {
   from_date?: string;
+  status?: string;
   to_date?: string;
   productName?: string;
+
+  types = ['Ativa', 'Inativa'];
 
   constructor(
     private dataService: DataService,
@@ -24,6 +27,7 @@ export class FormTableComponent implements OnInit {
   public onClick(): void {
     let data: Promotion = {
       name: String(this.productName),
+      status: String(this.status),
       end: this.to_date ? new Date(this.to_date).toISOString() : '',
       start: this.from_date ? new Date(this.from_date).toISOString() : '',
     };

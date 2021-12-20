@@ -10,7 +10,7 @@ export class Payment {
 		| "Cielo"
 		| "PicPay"
 		| "Pix";
-	status: "Ativo" | "Inativo";
+	status: "Ativa" | "Inativa";
 	value: string;
 
 	constructor(payment: Payment) {

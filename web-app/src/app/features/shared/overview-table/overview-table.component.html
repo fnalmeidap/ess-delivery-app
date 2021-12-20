@@ -14,15 +14,15 @@
   <ng-container matColumnDef="Início">
     <th mat-header-cell *matHeaderCellDef>Status</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.start | date: "short" }}
+      {{ element.status }}
     </td>
   </ng-container>
 
   <!-- End date Column -->
   <ng-container matColumnDef="Fim">
-    <th mat-header-cell *matHeaderCellDef>Expira</th>
+    <th mat-header-cell *matHeaderCellDef>Expira em</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.end | date: "short" }}
+      {{ element.end | date: "mediumDate" }}
     </td>
   </ng-container>
 

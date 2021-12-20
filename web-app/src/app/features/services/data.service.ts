@@ -67,9 +67,7 @@ export class DataService {
   public updatePayments(data: Payment) {
     this.http
       .post(this.BASE_URL + 'payments', data)
-      .subscribe((res) => {
-        console.log(res);
-      })
+      .subscribe()
       .add(() => {
         this.getPayments();
       });
